@@ -1,0 +1,107 @@
+/* styleservice.css */
+
+/* Genel stil */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Başlık ve navigasyon */
+header {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Hizmetler bölümü */
+#services {
+  padding: 20px;
+}
+
+.service {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.service h3 {
+  margin-top: 0;
+}
+
+.service p {
+  margin-bottom: 10px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+/* Booking Form */
+#booking-form-container {
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+#booking-form-container h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+#booking-form-container form {
+  display: grid;
+  grid-gap: 10px;
+}
+
+#booking-form-container label {
+  font-weight: bold;
+}
+
+#booking-form-container input[type="text"],
+#booking-form-container select {
+  width: 100%;
+  padding: 5px;
+}
+
+#booking-form-container input[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Footer */
+footer {
+  background-color: #f2f2f2;
+  padding: 20px;
+  text-align: center;
+  color: #666;
+}
