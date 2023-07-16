@@ -1,0 +1,101 @@
+/* styles.css */
+
+/* Genel Stiller */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1, h2, h3 {
+    color: #333;
+  }
+  
+  p {
+    color: #666;
+  }
+  
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Header */
+  header {
+    background-color: #f8f8f8;
+    padding: 20px;
+  }
+  
+  header h1 {
+    margin: 0;
+  }
+  
+  nav ul {
+    display: flex;
+  }
+  
+  nav ul li {
+    margin-right: 10px;
+  }
+  
+  /* Contact Bölümü */
+  #contact {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  #contact h2 {
+    font-size: 36px;
+  }
+  
+  #contact ul {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  #contact ul li {
+    margin-bottom: 10px;
+  }
+  
+  #contact form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  #contact form label {
+    margin-bottom: 5px;
+  }
+  
+  #contact form input,
+  #contact form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  #contact form textarea {
+    resize: vertical;
+    height: 100px;
+  }
+  
+  #contact form button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #contact form button:hover {
+    background-color: #0056b3;
+  }
