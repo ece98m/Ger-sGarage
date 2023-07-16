@@ -44,39 +44,46 @@ body {
     margin-bottom: 5px;
   }
   
-  form input[type="text"] {
-    width: 200px;
+  form input[type="text"],
+  form select {
+    width: 100%;
     margin-bottom: 10px;
+    box-sizing: border-box;
+    padding: 10px;
   }
   
   form button {
-    padding: 5px 10px;
+    padding: 10px 20px;
     background-color: #333;
     color: #fff;
     border: none;
     cursor: pointer;
   }
   
-  section#rezervasyonlarim table {
+  section#add-vehicle {
+    margin-bottom: 20px;
+  }
+  
+  section#my-reservations table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
   }
   
-  section#rezervasyonlarim th,
-  section#rezervasyonlarim td {
-    padding: 5px;
+  section#my-reservations th,
+  section#my-reservations td {
+    padding: 10px;
     border: 1px solid #333;
   }
   
-  section#rezervasyonlarim th {
+  section#my-reservations th {
     background-color: #333;
     color: #fff;
   }
   
   footer {
     background-color: #fff;
-    color: #333
+    color: #333;
     padding: 10px;
     text-align: center;
   }
