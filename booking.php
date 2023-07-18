@@ -1,6 +1,17 @@
 <?php include "header.php"; ?>
 
+
 <?php 
+session_start();
+
+if (isset($_SESSION['email'])) {
+  $email = $_SESSION['email'];
+} else {
+  // Kullanıcı oturum açmamışsa veya oturumu kapatılmışsa burada ilgili işlemleri yapabilirsiniz
+  // Örneğin, oturum açma sayfasına yönlendirme yapabilirsiniz.
+}
+
+$successMessage = ""; // Başlangıçta boş bir başarı mesajı
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -68,6 +79,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $sql = "SELECT service_id, service_name FROM services";
 $list = $mysqli->query($sql);
 
+$sql = "SELECT idcustomers FROM customers WHERE email='$email'";
+  $result = $mysqli->query($sql);
+
+  if ($result->num_rows > 0) {
+    // Müşteri bulundu, ID'yi al
+    $row = $result->fetch_assoc();
+    $customerId = $row['idcustomers']; // Bu idyi gerekli değişkene ata
+  }
+// services tablosundan tüm satırları almak için sorguyu oluştur
+   
+$sql = "SELECT * FROM vehicles WHERE idcustomers='$customerId'";
+$licenses = $mysqli->query($sql);
 ?>
 
 
@@ -83,37 +106,21 @@ $list = $mysqli->query($sql);
     <form action="" method="post">
    
 
-        <label for="contact_email">Contact Email:</label>
-        <input type="email" id="contact_email" name="contact_email" required>
-
-        <label for="vehicle_type">Vehicle Type:</label>
+     
+        <label for="vehicle_type">Choose Your Vehicle </label>
         <select id="vehicle_type" name="vehicle_type" required>
-            <option value="motorbike">Motorbike</option>
-            <option value="car">Car</option>
-            <option value="small_van">Small Van</option>
-            <option value="small_bus">Small Bus</option>
+         <?php
+            if ($licenses->num_rows > 0) {
+                while ($row = $licenses->fetch_assoc()) {
+                    echo "<option value=\"" . $row['license'] . "\">" . $row['license'] . "</option>";
+                }
+            } else {
+                echo "No services available";
+            }
+            ?>
         </select>
 
-        <label for="vehicle_make">Vehicle Make:</label>
-        <select id="vehicle_make" name="vehicle_make" required>
-            <!-- -->
-            <option value="audi">Audi</option>
-            <option value="bmw">BMW</option>
-            <!-- More car makes -->
-            <option value="mercedes">Mercedes</option>
-            <!--  -->
-        </select>
 
-        <label for="vehicle_license">Vehicle License Details:</label>
-        <input type="text" id="vehicle_license" name="vehicle_license" required>
-
-        <label for="vehicle_engine_type">Vehicle Engine Type:</label>
-        <select id="vehicle_engine_type" name="vehicle_engine_type" required>
-            <option value="diesel">Diesel</option>
-            <option value="petrol">Petrol</option>
-            <option value="hybrid">Hybrid</option>
-            <option value="electric">Electric</option>
-        </select>
 
         <label for="service_type">Service Type:</label>
         <select id="service_type" name="service_type" required>

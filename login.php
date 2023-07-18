@@ -1,7 +1,5 @@
 <?php include "header.php"; ?>
 
-
-
 <?php
 
 if(!empty($_SESSION['email'])) { //eğer $_SESSION['email'] değişkeni
@@ -42,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 <section id="">
-<div class="container mt-5 mb-5">   // margintop marginbuttom
+<div class="container mt-5 mb-5">  
         <div class="row justify-content-center">
             <div class="col-md-6">
             <?php 
