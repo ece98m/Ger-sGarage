@@ -1,5 +1,9 @@
+<?php
+// Bağlantıyı include edin ve session_start() işlemini ekleyin
+include "connection.php";
 
-<?php include "connection.php"; ?>
+?>
+
 <?php
 
 if(!empty($_SESSION['username'])) { //eğer $_SESSION['email'] değişkeni
@@ -38,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-
+<link rel="stylesheet" type="text/css" href="styleadminlogin.css">
 <section id="">
 <div class="container mt-5 mb-5">  
         <div class="row justify-content-center">

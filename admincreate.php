@@ -25,7 +25,7 @@
       <input type="submit" value="Register">
     </form>
 
-    <p>Already have an account? <a href="adminlogin.php">Login here</a></p>
+
   </div>
 
 </body>
