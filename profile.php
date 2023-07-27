@@ -1,4 +1,5 @@
-<?php include "header.php"; ?>
+
+<?php include "header.php" ;  echo $email; ?>
 <?php
 
 session_start();
@@ -34,18 +35,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
   
 }
+
 ?>
 
-  
- 
    
     <head>
     <title>Autoservice</title>
-    <link rel="stylesheet" type="text/css" href="styleprofile.css">
-  
-
+    <link rel="stylesheet" type="text/css" href="sprofile.css">
     <header>
-  <link rel="stylesheet" type="text/css" href="styleprofile.css">
+   
     <h1>Welcome, <?php echo $email; ?> </h1>
     <h3>
     <section id="buttons">
@@ -56,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </header>
 
  
-  <button onclick="location.href='booking.php';">BOOK NOW</button>
+  
 
     <section id="my-reservations">
       <h2>My Reservations</h2>
@@ -78,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Other reservations can be added here -->
       </table>
     </section>
-
+    <button id='bookbutton' onclick="location.href='booking.php';">BOOK NOW</button>
   </main>
 
   <footer>

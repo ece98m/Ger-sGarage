@@ -44,7 +44,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $customerId = $row['idcustomers']; // Bu idyi gerekli değişkene ata
     }
 
+    $sql = "SELECT idvehicles FROM vehicles WHERE idcustomers='$customerId'";
+$result = $mysqli->query($sql);
+
+if ($result->num_rows > 0) {
+  // Müşteri bulundu, ID'yi al
+  $row = $result->fetch_assoc();
+  $vehicleId = $row['idvehicles']; // Bu idyi gerekli değişkene ata
+} 
+    $idMechanic = rand(1, 4);
+    $status = "aaa";
+    $sql = "INSERT INTO bookings (idcustomers, idvehicles, booking_date, service_id, customer_note, id_mechanics, status)
+            VALUES ('$customerId', '$vehicleId', '$date' , '$serviceId', '$service_description', '$idMechanic', '$status' )";
   
+    if ($mysqli->query($sql) === true) {
+        echo "Yeni rezervasyon başarıyla eklendi.";
+    } else {
+        echo "Rezervasyon ekleme hatası: " . $mysqli->error;
+    }
+  } 
 
 // services tablosundan tüm satırları almak için sorguyu oluştur
 $sql = "SELECT service_id, service_name FROM services";
@@ -59,31 +77,15 @@ $sql = "SELECT idcustomers FROM customers WHERE email='$email'";
     $customerId = $row['idcustomers']; // Bu idyi gerekli değişkene ata
   }
 
-  $sql = "SELECT idvehicles FROM vehicles WHERE idcustomers=' $customerId'";
-  $result = $mysqli->query($sql);
-  
-  if ($result->num_rows > 0) {
-    // Müşteri bulundu, ID'yi al
-    $row = $result->fetch_assoc();
-    $vehicleId = $row['idvehicles']; // Bu idyi gerekli değişkene ata
-  } 
-  
-  
-  $idMechanic = rand(1, 4);
-  $status = "aaa";
-  $sql = "INSERT INTO bookings (idcustomers, idvehicles, booking_date, service_id, customer_note, id_mechanics, status)
-          VALUES ('$customerId', '$vehicleId', '$date' , '$serviceId', '$service_description', '$idMechanic', '$status' )";
 
-  if ($mysqli->query($sql) === true) {
-      echo "Yeni rezervasyon başarıyla eklendi.";
-  } else {
-      echo "Rezervasyon ekleme hatası: " . $mysqli->error;
-  }
-} 
+ 
 // services tablosundan tüm satırları almak için sorguyu oluştur
    
 $sql = "SELECT * FROM vehicles WHERE idcustomers='$customerId'";
 $licenses = $mysqli->query($sql);
+
+
+
 ?>
 
 
