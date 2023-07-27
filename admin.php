@@ -1,5 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+
+if(!empty($_SESSION['username'])) { //eğer $_SESSION['email'] değişkeni
+    header("Location: profie.php"); // boş değilse (yani kullanıcı oturumu açmışsa), tarayıcıyı "profile.php" sayfasına yönlendirir.
+}
+
+
+?>
+
+
+
+
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +19,18 @@
 </head>
 <body>
   <div class="container">
+
     <h1>Welcome to Ger's Garage Admin Page</h1>
 
+    <div class="text-end">
+            <?php if(!empty($_SESSION['username'])) { ?>
+                <a href="adminlogout.php" type="button" class="btn btn-primary">Logout</a>
+            <?php } else { ?> 
+                <a href="adminlogout.php" type="button" class="btn btn-primary">LogOut</a>
+            <?php } ?>
+          
+          
+        </div>
     <h3>Today's Bookings</h3>
     <table class="table">
       <thead>
@@ -51,4 +72,3 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.13/antd.min.js"></script>
 </body>
-</html>
