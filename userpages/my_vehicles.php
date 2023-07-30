@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
   <header>
-  <link rel="stylesheet" type="text/css" href="styleprofile.css">
+  <link rel="stylesheet" type="text/css" href="userpagecss/stylemyvehicles.css">
     <h1>Welcome, <?php echo $email; ?> </h1>
     <h3>
     <section id="buttons">

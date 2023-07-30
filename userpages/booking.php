@@ -52,9 +52,14 @@ if ($result->num_rows > 0) {
   $row = $result->fetch_assoc();
   $vehicleId = $row['idvehicles']; // Bu idyi gerekli değişkene ata
 } 
-    $idMechanic = rand(1, 4);
-    $status = "aaa";
-    $sql = "INSERT INTO bookings (idcustomers, idvehicles, booking_date, service_id, customer_note, id_mechanics, status)
+
+
+
+
+
+    $idMechanic =1;
+    $status = 1;
+    $sql = "INSERT INTO bookings (idcustomers, idvehicles, booking_date, service_id, customer_note, id_mechanics, status )
             VALUES ('$customerId', '$vehicleId', '$date' , '$serviceId', '$service_description', '$idMechanic', '$status' )";
   
     if ($mysqli->query($sql) === true) {

@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     <head>
     <title>Autoservice</title>
-    <link rel="stylesheet" type="text/css" href="sprofile.css">
+    <link rel="stylesheet" type="text/css" href="userpagecss/sprofile.css">
     <header>
    
     <h1>Welcome, <?php echo $email; ?> </h1>

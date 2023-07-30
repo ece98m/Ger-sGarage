@@ -1,6 +1,8 @@
 <?php
 // Bağlantıyı include edin ve session_start() işlemini ekleyin
-include "connection.php";
+/* include "connection.php";              ../ */
+require '../userpages/connection.php';          
+
 
 ?>
 
@@ -31,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result->num_rows == 1) {
             // Giriş başarılı, oturumu başlat
             $_SESSION['username'] = $username;
-            header("Location: admin.php"); // Giriş başarılıysa yönlendirilecek sayfa
+            header("Location: admin.php"); // Giriş başarılıysa yönlendirilecek sayfa ../
         } else {
             // Giriş başarısız
             $errors[] = "Your account has not been found";
@@ -42,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 
-<link rel="stylesheet" type="text/css" href="styleadminlogin.css">
+<link rel="stylesheet" type="text/css" href="admincss/styleadminlogin.css">
 <section id="">
 <div class="container mt-5 mb-5">  
         <div class="row justify-content-center">
