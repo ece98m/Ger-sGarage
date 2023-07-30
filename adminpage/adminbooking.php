@@ -32,12 +32,6 @@ error_reporting(E_ALL);
   <!-- Add a container element with ID "bookings" -->
   <div id="bookings"></div>
 
-  <!-- Add a select element for mechanics -->
-  <label for="mechanicSelect">Select a mechanic:</label>
-  <select id="mechanicSelect">
-    <?php echo getMechanicsOptions(); ?>
-  </select>
-  <button id="assignMechanicBtn">Assign Mechanic</button>
 
   <!-- Your JavaScript code goes here -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
