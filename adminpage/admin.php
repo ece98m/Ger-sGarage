@@ -18,7 +18,7 @@ if (!empty($_SESSION['username'])) {
             <h1>Welcome to Ger's Garage Admin Page</h1>
             <div>
                 <a href="admincreate.php" class="btn nav-link">Add Admin</a> <!-- Added the class "nav-link" to the anchor elements -->
-                <a href="adminbooking.php" class="btn nav-link">Reservations</a>
+                <a href="bookings.php" class="btn nav-link">Reservations</a>
                 <a href="staffroster.php" class="btn nav-link">Staff Roster</a>
                 <?php if (!empty($_SESSION['username'])) { ?>
                     <a href="adminlogout.php" class="btn btn-primary nav-link">Logout</a> <!-- Added the class "nav-link" to the anchor element -->
