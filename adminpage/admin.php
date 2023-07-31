@@ -2,6 +2,7 @@
 if (!empty($_SESSION['username'])) {
     header("Location: admin.php");
 }
+include '../userpages/connection.php';
 ?>
 
 
@@ -29,7 +30,7 @@ if (!empty($_SESSION['username'])) {
                 <?php } ?>
             </div>
         </nav>
-        <h3>Today's Bookings</h3>
+    
         <!-- Rest of the content -->
     </div>
 

@@ -1,4 +1,5 @@
 <?php
+include "admin.php";
 // Bağlantıyı include edin ve session_start() işlemini ekleyin
 /* include "connection.php";              ../ */
 require '../userpages/connection.php';

@@ -1,3 +1,12 @@
+<?php
+
+// Bağlantıyı include edin ve session_start() işlemini ekleyin
+/* include "connection.php";              ../ */
+require '../userpages/connection.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

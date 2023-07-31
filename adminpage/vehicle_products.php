@@ -1,5 +1,5 @@
 <?php
-
+include "admin.php";
 require '../userpages/connection.php';
 
 ini_set('display_errors', 1);
