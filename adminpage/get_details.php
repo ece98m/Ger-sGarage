@@ -19,8 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['date'])) {
         while($row = $result_parts->fetch_assoc()) {
             $parts[$row['part_id']] = $row['part_name'] . ' ' . $row['price'];
         }
-    }
-
+    } 
+ 
 
 
   
@@ -72,28 +72,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['date'])) {
         echo 'NO BOOKINGS FOR THIS DAY.';
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_parts'])) {
-        $booking_id = $_POST['booking_id'];
-        foreach ($_POST['selected_parts'] as $part_id_value) {
-            // Use prepared statements to avoid SQL injection.
-            $sql = "INSERT INTO part_cost (part_id, bill_id) VALUES (?, ?)";
-            $stmt = $mysqli->prepare($sql);
-            $stmt->bind_param("ii", $part_id_value, $booking_id);
-            if ($stmt->execute()) {
-                echo "New record created successfully";
-            } else {
-                echo "Error: " . $sql . "<br>" . $stmt->error;
-            }
-        }
-    }
-    
+
+if(empty($_POST["selected_parts"])) {
 ?>
 
 <head>
     <title>Add Product on Invoice</title>
 </head>
 <body>
-    <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>">
+    <form method="post" action="" id="booking_last">
         <label for="booking_id">Booking ID:</label>
         <input type="text" name="booking_id" id="booking_id" required>
         <br>
@@ -106,4 +93,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['date'])) {
         <br>
         <input type="submit" name="submit" value="Add on Receipt">
     </form>
+    
+    <div class="invoice-area"></div>
 </body>
+
+<script>
+    $(document).ready(function() {
+        $("#booking_last").on("submit", function(e) {
+            e.preventDefault();
+            var formValues= $(this).serialize();
+            
+
+            $.ajax({
+            url: 'get_details_last.php',
+            type: 'POST',
+            data: formValues,
+            dataType: 'html', 
+            success: function(data) {
+                $('.invoice-area').html(data);
+            }
+            });
+        });
+    });
+</script>
+<?php } else { ?>
+alert
+<?php } ?>
