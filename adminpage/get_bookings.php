@@ -86,25 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo '</table>
      
         <input type="submit" value="Update Bookings">
-        
-        <style>
-        /* Add any additional CSS styles specific to your admin booking page here */
-        input[type="submit"] {
-          background-color: #4CAF50;
-          color: white;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 16px;
-          display: block; /* Set the button to be a block-level element */
-          margin: 40px auto 0;  /* Center the button horizontally */
-        }
-    
-        input[type="submit"]:hover {
-          background-color: #45a049;
-        }
-      </style>
+       
         </form>';
     } else {
         echo 'NO BOOKINGS FOR THIS DAY.';

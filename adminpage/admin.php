@@ -22,7 +22,7 @@ include '../userpages/connection.php';
                 <a href="bookings.php" class="btn nav-link">Reservations</a>
                 <a href="staffroster.php" class="btn nav-link">Staff Roster</a>
                 <a href="vehicle_products.php" class="btn nav-link">Vehicle Products</a>
-                <a href="cost_allocation.php" class="btn nav-link">Allocate Costs</a>
+                <a href="invoice.php" class="btn nav-link">Customer Invoice</a>
                 <?php if (!empty($_SESSION['username'])) { ?>
                     <a href="adminlogout.php" class="btn btn-primary nav-link">Logout</a> <!-- Added the class "nav-link" to the anchor element -->
                 <?php } else { ?>

@@ -36,7 +36,7 @@ error_reporting(E_ALL);
         console.log("Selected date:", formattedDate);
 
         $.ajax({
-          url: 'get_bookings.php',
+          url: 'get_details.php',
           type: 'POST',
           data: { date: formattedDate },
           dataType: 'html', 
