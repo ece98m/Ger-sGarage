@@ -94,7 +94,16 @@ if(empty($_POST["selected_parts"])) {
         <input type="submit" name="submit" value="Add on Receipt">
     </form>
     
-    <div class="invoice-area"></div>
+    <div class="invoice-area">
+
+    <form method="post" action="" id="print_invoice">
+        <label for="booking_id">Booking ID:</label>
+        <input type="text" name="booking_id" id="booking_id" required>
+
+        <input type="submit" name="submit" value="Preview the receipt">
+    </form>
+
+    </div>
 </body>
 
 <script>

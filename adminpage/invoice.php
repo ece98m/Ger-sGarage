@@ -20,7 +20,7 @@ error_reporting(E_ALL);
 </head>
 
 <body>
-  <h1>Welcome to Ger's Garage Admin Page</h1>
+  <h1>Manage Your Customer Invoices</h1>
   <p>Select a date:</p>
   <input type="text" id="datepicker">
   <div id="bookings"></div>
