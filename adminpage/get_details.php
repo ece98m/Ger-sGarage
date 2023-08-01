@@ -5,8 +5,11 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['date'])) {
     $dateText = $_POST['date']; // Make sure to sanitize and validate this input.
+    // ...
+}
+
   
     // Database'den mekaniklerin isimlerini al
     $sql_parts = "SELECT part_id, part_name, price FROM parts";
@@ -17,23 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $parts[$row['part_id']] = $row['part_name'] . ' ' . $row['price'];
         }
     }
-   // Form gönderildiğinde işlenecek kısım
-if(isset($_POST['submit'])) {
-    $booking_id = $_POST['booking_id'];
-    $selected_parts = isset($_POST['selected_parts']) ? $_POST['selected_parts'] : [];
-    // İşlem yapılacak diğer verileri buraya ekleyebilirsiniz.
 
-    // Seçili parçaların bilgilerini alma işlemleri buraya gelecek
-
-    // Örneğin:
-    $selected_parts_info = [];
-    foreach($selected_parts as $part_id) {
-        if(isset($parts[$part_id])) {
-            $selected_parts_info[$part_id] = $parts[$part_id];
-        }
-    }
-     // Seçili parçaların bilgilerini işlemek için kullanabilirsiniz. Örneğin bir fatura oluşturma işlemi burada yapılabilir.
-}
 
 
   
@@ -75,7 +62,6 @@ if(isset($_POST['submit'])) {
                     <td>' . $row['booking_date'] . '</td>
                     <td>' . $row['service_name'] . '</td>
                     <td>' . $row['fixed_price'] . '</td>
-            
               </tr>';
         }
 
@@ -85,14 +71,29 @@ if(isset($_POST['submit'])) {
     } else {
         echo 'NO BOOKINGS FOR THIS DAY.';
     }
-}
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_parts'])) {
+        $booking_id = $_POST['booking_id'];
+        foreach ($_POST['selected_parts'] as $part_id_value) {
+            // Use prepared statements to avoid SQL injection.
+            $sql = "INSERT INTO part_cost (part_id, bill_id) VALUES (?, ?)";
+            $stmt = $mysqli->prepare($sql);
+            $stmt->bind_param("ii", $part_id_value, $booking_id);
+            if ($stmt->execute()) {
+                echo "New record created successfully";
+            } else {
+                echo "Error: " . $sql . "<br>" . $stmt->error;
+            }
+        }
+    }
+    
 ?>
 
 <head>
     <title>Add Product on Invoice</title>
 </head>
 <body>
-    <form method="post" action="">
+    <form method="post" action="<?php echo $_SERVER["REQUEST_URI"]; ?>">
         <label for="booking_id">Booking ID:</label>
         <input type="text" name="booking_id" id="booking_id" required>
         <br>
@@ -106,4 +107,3 @@ if(isset($_POST['submit'])) {
         <input type="submit" name="submit" value="Add on Receipt">
     </form>
 </body>
- 
