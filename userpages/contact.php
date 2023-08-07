@@ -1,3 +1,6 @@
+<?php include "header.php"; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,17 +10,6 @@
   <link rel="stylesheet" href="stylecontact.css">
 </head>
 <body>
-  <header>
-    <h1>Welcome to Ger's Garage</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="service.html">Services</a></li>
-        <li><a href="booking.html">Bookings</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
   <section id="contact">
     <h2>Contact Us</h2>

@@ -1,16 +1,21 @@
-<?php include "header.php"; ?>
+<?php 
+include "header.php";?>
+<?php 
+session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-<?php
-
-if(!empty($_SESSION['email'])) { //eğer $_SESSION['email'] değişkeni
-    header("Location: profie.php"); // boş değilse (yani kullanıcı oturumu açmışsa), tarayıcıyı "profile.php" sayfasına yönlendirir.
+if(isset($_SESSION['email'])) { 
+    header("Location: profile.php");
+    exit;
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email= $_POST['email'];
-    $password = $_POST['password'];
+$errors = array();
 
-    $errors = array();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
     
     if(empty($email)) {
         $errors[] = "Please enter your email";
@@ -19,50 +24,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors[] = "Please enter your password";
     }
     
-    if(empty($errors)) { 
-        // $errors dizisinin boş olup olmadığını kontrol eder. Eğer hata yoksa, kullanıcıyı kontrol etmek ve giriş işlemini gerçekleştirmek için bu bloğa girilir.
-        $sql = "SELECT * FROM customers WHERE email='$email' AND password='$password'";
-        $result = $mysqli->query($sql);
+    if(empty($errors)) {
+        $sql = "SELECT * FROM customers WHERE email = ? AND password = ?";
+        $stmt = $mysqli->prepare($sql);
+        
+        $stmt->bind_param("ss", $email, $password);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
 
         if ($result->num_rows == 1) {
-            // Giriş başarılı, oturumu başlat
             $_SESSION['email'] = $email;
-            header("Location: profile.php"); // Giriş başarılıysa yönlendirilecek sayfa
+            header("Location: profile.php");
+            exit;
         } else {
-            // Giriş başarısız
             $errors[] = "Your account has not been found";
         }
-    }
-    
-}
 
+        $stmt->close();
+    }
+}
 ?>
 
-
 <section id="">
-<div class="container mt-5 mb-5">  
-        <div class="row justify-content-center">
-            <div class="col-md-6">
+<div class="login-area ptb-100">  
+    <div class="container">
+        <div class="login-item">
             <?php 
-                if(!empty($errors)): foreach ($errors as $key => $value) { ?>
+            if(!empty($errors)): foreach ($errors as $error): ?>
                 <div class="alert alert-warning" role="alert">
-                    <?=$value?>
+                    <?php echo $error; ?>
                 </div>
-                <?php } endif; ?>
-                <h2>Login</h2>
-                <form action="" method="post">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input  value="<?=$email?>" name="email" type="email" class="form-control" id="email" placeholder="Enter your email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input  value="<?=$password?>" name="password" type="password" class="form-control" id="password" placeholder="Enter your password">
-                    </div>
+            <?php endforeach; endif; ?>
+            
+            <h2>Login</h2>
+            <form action="" method="post">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input name="email" type="email" class="form-control" id="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Enter your password">
+                </div>
+                <div class="text-center">
                     <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-            </div>
+                </div>
+            </form>
+            <span>New member? <a href="register.php">Register Now</a></span>
         </div>
     </div>
+</div>
 </section>
+
 <?php include "footer.php"; ?>
+
+
+
+
+   

@@ -1,6 +1,6 @@
 /* Header */
 header {
-  background-color: #fbfafa;
+  background-color: #242222;
   color: #fff;
   padding: 20px;
 }
@@ -28,7 +28,7 @@ nav ul li a {
 
 /* Hero Section */
 #hero {
-  background-color: #f1f1f1;
+  background-color: #060606;
   padding: 40px;
   text-align: center;
 }
@@ -51,7 +51,7 @@ nav ul li a {
 }
 
 .service {
-  background-color: #f1f1f1;
+  background-color: #5f4f4f;
   padding: 20px;
   margin-bottom: 20px;
 }
