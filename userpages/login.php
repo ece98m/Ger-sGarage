@@ -1,15 +1,15 @@
 <?php 
 include "header.php";?>
 <?php 
-session_start();
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if(isset($_SESSION['email'])) { 
+/* if(isset($_SESSION['email'])) { 
     header("Location: profile.php");
     exit;
-}
+} */
 
 $errors = array();
 
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows == 1) {
             $_SESSION['email'] = $email;
-            header("Location: profile.php");
+            header("Location: ".URL."profile.php");
             exit;
         } else {
             $errors[] = "Your account has not been found";
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endforeach; endif; ?>
             
             <h2>Login</h2>
-            <form action="" method="post">
+            <form action="" method="POST">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input name="email" type="email" class="form-control" id="email" placeholder="Enter your email">
