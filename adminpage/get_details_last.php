@@ -1,18 +1,16 @@
-
 <?php
-require '../userpages/connection.php';
+require "../userpages/connection.php";
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
-
 // Adding the selected parts on invoice
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_parts'])) {
-    $booking_id = $_POST['booking_id'];
-    $successMessages = array(); // Array to store success messages
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["selected_parts"])) {
+    $booking_id = $_POST["booking_id"];
+    $successMessages = []; // Array to store success messages
 
-    foreach ($_POST['selected_parts'] as $part_id_value) {
+    foreach ($_POST["selected_parts"] as $part_id_value) {
         // Use prepared statements to avoid SQL injection.
         $sql = "INSERT INTO part_cost (part_id, bill_id) VALUES (?, ?)";
         $stmt = $mysqli->prepare($sql);
@@ -26,15 +24,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected_parts'])) {
 }
 if (!empty($successMessages)) {
     foreach ($successMessages as $message) {
-        echo '<p style="color: green;">' . $message . '</p>';
+        echo '<p style="color: green;">' . $message . "</p>";
     }
 }
 
-if(empty($_POST["selected_parts"])) {
-?>
+if (empty($_POST["selected_parts"])) { ?>
 
 <head>
-    <title>Add Product on Invoice</title>
 </head>
 <body>
     <form method="post" action="" id="booking_last">
@@ -42,11 +38,13 @@ if(empty($_POST["selected_parts"])) {
         <input type="text" name="booking_id" id="booking_id" required>
         <br>
         <label>Parts and Products:</label><br>
-        <?php
-        foreach($parts as $part_id => $part_name) {
-            echo '<input type="checkbox" name="selected_parts[]" value="' . $part_id . '"> ' . $part_name . '<br>';
-        }
-        ?>
+        <?php foreach ($parts as $part_id => $part_name) {
+            echo '<input type="checkbox" name="selected_parts[]" value="' .
+                $part_id .
+                '"> ' .
+                $part_name .
+                "<br>";
+        } ?>
         <br>
         <input type="submit" name="submit" value="Add on Receipt">
     </form>
@@ -75,4 +73,5 @@ if(empty($_POST["selected_parts"])) {
 </script>
 <?php } else { ?>
 alert
-<?php } ?>
+<?php }
+?>
