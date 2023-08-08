@@ -41,7 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
       // Müşteri bulundu, ID'yi al
       $row = $result->fetch_assoc();
-      $customerId = $row['idcustomers']; 
+      $customerId = $row['idcustomers']; // Bu idyi gerekli değişkene ata
+    }
 
     $sql = "SELECT idvehicles FROM vehicles WHERE idcustomers='$customerId'";
 $result = $mysqli->query($sql);
@@ -49,7 +50,7 @@ $result = $mysqli->query($sql);
 if ($result->num_rows > 0) {
   // Müşteri bulundu, ID'yi al
   $row = $result->fetch_assoc();
-  $vehicleId = $row['idvehicles']; 
+  $vehicleId = $row['idvehicles']; // Bu idyi gerekli değişkene ata
 } 
 
 
@@ -83,7 +84,7 @@ $sql = "SELECT idcustomers FROM customers WHERE email='$email'";
 
 
  
-// get the vehicle licenses belong to specific customer account
+// services tablosundan tüm satırları almak için sorguyu oluştur
    
 $sql = "SELECT * FROM vehicles WHERE idcustomers='$customerId'";
 $licenses = $mysqli->query($sql);
@@ -92,30 +93,23 @@ $licenses = $mysqli->query($sql);
 
 ?>
 
-  
+
+
+
+
+
+
+
 
 <section id="booking">
     <head>
         <link rel="stylesheet" type="text/css" href="userpagecss/stylebooking.css">
-        <style>
-         .custom-margin {
-         margin-top: 200px;
-         }
-</style>   
     </head>
-
-    <div class="container">
-                <div class="row justify-content-center custom-margin"> <!-- to move down custom margin-->
-                    <div class="col-lg-6">
-                        <div class="checkout-item">
-
     <h2>Book Your Service or Repair</h2>
-    <div class="checkout-one">
+
     <form action="" method="post">
-    <div class="form-group">
         <label for="vehicle_type">Choose Your Vehicle </label>
-        
-        <select class="form-control" id="vehicle_type" name="vehicle_type" required>
+        <select id="vehicle_type" name="vehicle_type" required>
             <?php
             if ($licenses->num_rows > 0) {
                 while ($row = $licenses->fetch_assoc()) {
@@ -126,11 +120,9 @@ $licenses = $mysqli->query($sql);
             }
             ?>
         </select>
-        </div>
-        <div class="form-group">
-        <label for="service_type">Service Type:</label>
-        <select class="form-control" id="service_type" name="service_type" required>
 
+        <label for="service_type">Service Type:</label>
+        <select id="service_type" name="service_type" required>
             <?php
             if ($list->num_rows > 0) {
                 while ($row = $list->fetch_assoc()) {
@@ -141,10 +133,9 @@ $licenses = $mysqli->query($sql);
             }
             ?>
         </select>
-        </div>
-        <div class="form-group">
+
         <label for="date">Tarih:</label>
-        <input class="form-control" type="date" id="date" name="date" min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d', strtotime('+1 year')); ?>" required>
+        <input type="date" id="date" name="date" min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d', strtotime('+1 year')); ?>" required>
 
         <script>
             document.getElementById("date").addEventListener("change", function() {
@@ -157,10 +148,9 @@ $licenses = $mysqli->query($sql);
                 }
             });
         </script>
-        </div>
-        <div class="form-group">
+
         <label for="service_description">Service Description:</label>
-        <textarea class="form-control" id="service_description" name="service_description"></textarea>
+        <textarea id="service_description" name="service_description"></textarea>
 <script>
     document.querySelector("form").addEventListener("submit", function(event) {
         var serviceDescription = document.getElementById("service_description").value;
@@ -170,18 +160,13 @@ $licenses = $mysqli->query($sql);
             alert("Please fill up the description part");
         }
     });
-      </script>
-        </div>
+</script>
         <input type="submit" value="Submit">
-        </div>
     </form>
-
-                       </div>
-                    </div>
-                </div>
-            </div>
 </section>
 
 <!-- Diğer içerikler buraya eklenebilir -->
 
-
+<footer>
+    <p>&copy; 2023 Ger's Garage. </p>
+</footer>
