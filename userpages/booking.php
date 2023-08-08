@@ -41,8 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->num_rows > 0) {
       // Müşteri bulundu, ID'yi al
       $row = $result->fetch_assoc();
-      $customerId = $row['idcustomers']; // Bu idyi gerekli değişkene ata
-    }
+      $customerId = $row['idcustomers']; 
 
     $sql = "SELECT idvehicles FROM vehicles WHERE idcustomers='$customerId'";
 $result = $mysqli->query($sql);
@@ -50,7 +49,7 @@ $result = $mysqli->query($sql);
 if ($result->num_rows > 0) {
   // Müşteri bulundu, ID'yi al
   $row = $result->fetch_assoc();
-  $vehicleId = $row['idvehicles']; // Bu idyi gerekli değişkene ata
+  $vehicleId = $row['idvehicles']; 
 } 
 
 
@@ -84,7 +83,7 @@ $sql = "SELECT idcustomers FROM customers WHERE email='$email'";
 
 
  
-// services tablosundan tüm satırları almak için sorguyu oluştur
+// get the vehicle licenses belong to specific customer account
    
 $sql = "SELECT * FROM vehicles WHERE idcustomers='$customerId'";
 $licenses = $mysqli->query($sql);
