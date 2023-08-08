@@ -6,40 +6,60 @@ session_start();
 
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
-} else {
-  // Kullanıcı oturum açmamışsa veya oturumu kapatılmışsa burada ilgili işlemleri yapabilirsiniz
-  // Örneğin, oturum açma sayfasına yönlendirme yapabilirsiniz.
-}
 
-$successMessage = ""; // Başlangıçta boş bir başarı mesajı
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
- 
-  // Müşteri ID'sini bulmak için sorguyu oluştur
+  // Kullanıcı oturumu açıksa, lisansları getir
+  // get the customer id
   $sql = "SELECT idcustomers FROM customers WHERE email='$email'";
   $result = $mysqli->query($sql);
 
   if ($result->num_rows > 0) {
-    // Müşteri bulundu, ID'yi al
+    // customer has been found, now use the customer id
     $row = $result->fetch_assoc();
-    $customerId = $row['idcustomers']; // Bu idyi gerekli değişkene ata
+    $customerId = $row['idcustomers']; // assign the customer id to a variable
+
+    // get the vehicle licenses belong to the specific customer account
+    $sql = "SELECT * FROM vehicles WHERE idcustomers='$customerId'";
+    $licenses = $mysqli->query($sql);
   }
-
-
-
- 
+} else {
+  // Kullanıcı oturumu açık değilse, burada başka işlemleri yapabilirsiniz
 }
 
 ?>
-<!-- <head>
-<link rel="stylesheet" type="text/css" href="userpagecss/stylemyvehicles.css">
-</head>
-     -->
-  
 
 <body>
-<section id="vehicles">
+
+<section id="tracking-form">
+  <div class="container">
+    <div class="row justify-content-center custom-margin">
+      <div class="col-lg-6">
+        <div class="checkout-item">
+          <h2>Choose your vehicle</h2>
+          <div class="checkout-one">
+            <form action="" method="post">
+              <div class="form-group">
+                <label for="vehicle_type">License</label>
+                <select class="form-control" id="vehicle_type" name="vehicle_type" required>
+                  <?php
+                  if (isset($licenses) && $licenses->num_rows > 0) {
+                    while ($row = $licenses->fetch_assoc()) {
+                      echo "<option value=\"" . $row['license'] . "\">" . $row['license'] . "</option>";
+                    }
+                  } else {
+                    echo "<option value=\"\">No licenses available</option>";
+                  }
+                  ?>
+                </select>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tracking">
  
  <h3>Your Vehicles</h3>
  
