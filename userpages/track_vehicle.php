@@ -1,13 +1,14 @@
 <?php include "header.php"; ?>
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
 
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
-  
-  // Kullanıcı oturumu açıksa, lisansları getir
+
   // get the customer id
   $sql = "SELECT idcustomers FROM customers WHERE email='$email'";
   $result = $mysqli->query($sql);
@@ -40,9 +41,12 @@ if (isset($_SESSION['email'])) {
           $row = $result->fetch_assoc();
           $vehicleStatus = $row['status']; // assign the vehicle status to a variable
 
-          // Now you have the vehicle status, you can use it as needed
-          // For example, you can echo it here:
-          echo "Selected vehicle's status: " . $vehicleStatus;
+          // get the vehicle status now belong to the specific customer account
+        $sql = "SELECT Status_Name FROM booking_statuses WHERE Status_ID=' $vehicleStatus'";
+        $result = $mysqli->query($sql);
+        $Status = $row['Status_Name'];
+
+          echo "Selected vehicle's status: " .  $Status;
         } else {
           echo "No bookings found for the selected vehicle.";
         }
@@ -54,7 +58,7 @@ if (isset($_SESSION['email'])) {
 
 
 } else {
-  // Kullanıcı oturumu açık değilse, burada başka işlemleri yapabilirsiniz
+//if the session hasnt started
 }
 ?>
 

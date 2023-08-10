@@ -6,30 +6,28 @@ session_start();
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
 } else {
-  // Kullanıcı oturum açmamışsa veya oturumu kapatılmışsa burada ilgili işlemleri yapabilirsiniz
-  // Örneğin, oturum açma sayfasına yönlendirme yapabilirsiniz.
+  //  if the user is not logged in or the session is expired
+
 }
 
-$successMessage = ""; // Başlangıçta boş bir başarı mesajı
+$successMessage = ""; // Initially, an empty success message
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // İstenen form verilerini almak
+    // Get the required form data
     $date = $_POST["date"];
     $serviceType = $_POST['service_type'];
     $service_description = $_POST['service_description'];
     
-
-
-    // Servis ID'sini bulmak için sorguyu oluştur
+    // Construct a query to find the service ID
     $sql = "SELECT service_id FROM services WHERE service_name='$serviceType'";
     $result = $mysqli->query($sql);
     if ($result->num_rows > 0) {
-        // Servis bulundu, ID'yi al
+        // Service found, retrieve the ID
         $row = $result->fetch_assoc();
         $serviceId = $row['service_id'];
 
-        echo "service ID'si: " . $serviceId;
+        echo "Service ID: " . $serviceId;
     } else {
         echo "NO SERVICE HAS BEEN FOUND.";
     }
@@ -37,66 +35,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "SELECT idcustomers FROM customers WHERE email='$email'";
     $result = $mysqli->query($sql);
 
-   
     if ($result->num_rows > 0) {
-      // Müşteri bulundu, ID'yi al
+      // Customer found, retrieve the ID
       $row = $result->fetch_assoc();
-      $customerId = $row['idcustomers']; // Bu idyi gerekli değişkene ata
+      $customerId = $row['idcustomers']; // Assign this ID to the required variable
     }
 
     $sql = "SELECT idvehicles FROM vehicles WHERE idcustomers='$customerId'";
-$result = $mysqli->query($sql);
+    $result = $mysqli->query($sql);
 
-if ($result->num_rows > 0) {
-  // Müşteri bulundu, ID'yi al
-  $row = $result->fetch_assoc();
-  $vehicleId = $row['idvehicles']; // Bu idyi gerekli değişkene ata
-} 
+    if ($result->num_rows > 0) {
+      // Vehicle found, retrieve the ID
+      $row = $result->fetch_assoc();
+      $vehicleId = $row['idvehicles']; // Assign this ID to the required variable
+    } 
 
-
-
-
-
-    $idMechanic =1;
+    $idMechanic = 1;
     $status = 1;
     $sql = "INSERT INTO bookings (idcustomers, idvehicles, booking_date, service_id, customer_note, id_mechanics, status )
             VALUES ('$customerId', '$vehicleId', '$date' , '$serviceId', '$service_description', '$idMechanic', '$status' )";
   
     if ($mysqli->query($sql) === true) {
-        echo "Yeni rezervasyon başarıyla eklendi.";
+        echo "New reservation added successfully.";
     } else {
-        echo "Rezervasyon ekleme hatası: " . $mysqli->error;
+        echo "Error adding reservation: " . $mysqli->error;
     }
-  } 
+} 
 
-// services tablosundan tüm satırları almak için sorguyu oluştur
+// Construct a query to retrieve all rows from the services table
 $sql = "SELECT service_id, service_name FROM services";
 $list = $mysqli->query($sql);
 
 $sql = "SELECT idcustomers FROM customers WHERE email='$email'";
-  $result = $mysqli->query($sql);
+$result = $mysqli->query($sql);
 
-  if ($result->num_rows > 0) {
-    // Müşteri bulundu, ID'yi al
+if ($result->num_rows > 0) {
+    // Customer found, retrieve the ID
     $row = $result->fetch_assoc();
-    $customerId = $row['idcustomers']; // Bu idyi gerekli değişkene ata
-  }
+    $customerId = $row['idcustomers']; // Assign this ID to the required variable
+}
 
-
- 
-// services tablosundan tüm satırları almak için sorguyu oluştur
-   
+// Construct a query to retrieve all rows from the vehicles table for the specified customer
 $sql = "SELECT * FROM vehicles WHERE idcustomers='$customerId'";
 $licenses = $mysqli->query($sql);
-
-
-
 ?>
-
-
-
-
-
 
 
 
@@ -104,12 +86,44 @@ $licenses = $mysqli->query($sql);
 <section id="booking">
     <head>
         <link rel="stylesheet" type="text/css" href="userpagecss/stylebooking.css">
+        <style>
+        .custom-margin {
+          margin-top: 200px; /* location arrangement  */
+        } 
+      </style>
     </head>
-    <h2>Book Your Service or Repair</h2>
+
+    
+  <div class="container">
+                <div class="row justify-content-center custom-margin"> <!-- bootstrap -->
+                   
+                    <div class="col-lg-6">
+                        <div class="checkout-item">
+                          <h2>Book Your Service or Repair</h2>
+                          <div class="checkout-one">
+                            <!-- Display error messages here -->
+                            <?php if (!empty($errors)) : ?>
+              <div class="alert alert-danger">
+                <ul>
+                  <?php foreach ($errors as $error) : ?>
+                    <li><?php echo $error; ?></li>
+                  <?php endforeach; ?>
+                </ul>
+              </div>
+            <?php endif; ?>
+
+                  <!-- Display success message here -->
+            <?php if (!empty($successMessage)) : ?>
+              <div class="alert alert-success">
+                <?php echo $successMessage; ?>
+              </div>
+            <?php endif; ?>
+
 
     <form action="" method="post">
-        <label for="vehicle_type">Choose Your Vehicle </label>
-        <select id="vehicle_type" name="vehicle_type" required>
+        <label for="vehicle_type">Choose Your Vehicle:</label>
+        <div class="form-group">
+        <select class="form-control" id="vehicle_type" name="vehicle_type" required>
             <?php
             if ($licenses->num_rows > 0) {
                 while ($row = $licenses->fetch_assoc()) {
@@ -120,9 +134,11 @@ $licenses = $mysqli->query($sql);
             }
             ?>
         </select>
-
+        </div>
+        
         <label for="service_type">Service Type:</label>
-        <select id="service_type" name="service_type" required>
+        <div class="form-group">
+        <select class="form-control" id="service_type" name="service_type" required>
             <?php
             if ($list->num_rows > 0) {
                 while ($row = $list->fetch_assoc()) {
@@ -133,40 +149,46 @@ $licenses = $mysqli->query($sql);
             }
             ?>
         </select>
-
-        <label for="date">Tarih:</label>
-        <input type="date" id="date" name="date" min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d', strtotime('+1 year')); ?>" required>
-
+        </div>
+        <label for="date">Choose Date:</label>
+        <div class="form-group">
+        <input class="form-control" type="date" id="date" name="date" min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d', strtotime('+1 year')); ?>" required>
+       
         <script>
             document.getElementById("date").addEventListener("change", function() {
                 var selectedDate = new Date(this.value);
-                var dayOfWeek = selectedDate.getDay(); // 0 (Pazar) ile 6 (Cumartesi) arasında bir değer döndürür
+                var dayOfWeek = selectedDate.getDay(); // Returns a value between 0 (Sunday) and 6 (Saturday)
 
                 if (dayOfWeek == 0) {
-                    this.value = ""; // Seçilen tarihi temizle
+                    this.value = ""; // Clear the selected date
                     alert("Oops! Ger's Garage is not open on Sundays");
                 }
             });
         </script>
-
+       </div>
         <label for="service_description">Service Description:</label>
-        <textarea id="service_description" name="service_description"></textarea>
-<script>
-    document.querySelector("form").addEventListener("submit", function(event) {
-        var serviceDescription = document.getElementById("service_description").value;
+         <div class="form-group">
+        <textarea class="form-control" id="service_description" name="service_description"></textarea>
+        <script>
+            document.querySelector("form").addEventListener("submit", function(event) {
+                var serviceDescription = document.getElementById("service_description").value;
 
-        if (serviceDescription.trim() === "") {
-            event.preventDefault(); // Formun gönderilmesini engelle
-            alert("Please fill up the description part");
-        }
-    });
-</script>
+                if (serviceDescription.trim() === "") {
+                    event.preventDefault(); // Prevent form submission
+                    alert("Please fill up the description part");
+                }
+            });
+        </script>
+        </div>
         <input type="submit" value="Submit">
     </form>
+
+                             </div>
+                          </div>
+                        </div>
+                    </div>
+               </div>
 </section>
 
-<!-- Diğer içerikler buraya eklenebilir -->
 
-<footer>
-    <p>&copy; 2023 Ger's Garage. </p>
-</footer>
+<?php include "footer.php"; ?>
