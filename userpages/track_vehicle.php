@@ -36,15 +36,22 @@ if (isset($_SESSION['email'])) {
         // get the vehicle status now belong to the specific customer account
         $sql = "SELECT status FROM bookings WHERE idvehicles='$vehicleId'";
         $result = $mysqli->query($sql);
-        
+
+        $Status = ""; // Default value before the if statement
         if ($result->num_rows > 0) {
           $row = $result->fetch_assoc();
           $vehicleStatus = $row['status']; // assign the vehicle status to a variable
-
+ 
           // get the vehicle status now belong to the specific customer account
-        $sql = "SELECT Status_Name FROM booking_statuses WHERE Status_ID=' $vehicleStatus'";
-        $result = $mysqli->query($sql);
-        $Status = $row['Status_Name'];
+          $sql = "SELECT Status_Name FROM booking_statuses WHERE Status_ID='$vehicleStatus'";
+          $result = $mysqli->query($sql);
+          if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $Status = $row['Status_Name']; // Correct assignment
+          } else {
+            // Handle the case when no status name is found
+            $Status = "Unknown"; // Default value or appropriate error handling
+          }
 
           echo "Selected vehicle's status: " .  $Status;
         } else {
@@ -101,6 +108,10 @@ if (isset($_SESSION['email'])) {
       </div>
     </div>
   </section>
+
+  <div>
+  <p>STATUS : <?php echo $Status; ?></p>
+  </div>
 </body>
 
 <?php include "footer.php"; ?>

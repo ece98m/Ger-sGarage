@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    if ($stmt->error) {
     echo "ERROR: Could not able to execute $sql. " . $stmt->error;
    } else {
-    header("Location: admin.php?page=bookings");
+    header("Location: main.php?page=bookings");
     exit();
    }
   }

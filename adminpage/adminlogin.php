@@ -1,5 +1,5 @@
 <?php
-// Bağlantıyı include edin ve session_start() işlemini ekleyin
+
 /* include "connection.php";              ../ */
 require '../userpages/connection.php';          
 
@@ -8,8 +8,8 @@ require '../userpages/connection.php';
 
 <?php
 
-if(!empty($_SESSION['username'])) { //eğer $_SESSION['email'] değişkeni
-    header("Location: admin.php"); // boş değilse (yani kullanıcı oturumu açmışsa), tarayıcıyı "profile.php" sayfasına yönlendirir.
+if(!empty($_SESSION['username'])) { 
+    header("Location: main.php"); 
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -26,16 +26,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     if(empty($errors)) { 
-        // $errors dizisinin boş olup olmadığını kontrol eder. Eğer hata yoksa, kullanıcıyı kontrol etmek ve giriş işlemini gerçekleştirmek için bu bloğa girilir.
+      
         $sql = "SELECT * FROM admin WHERE username='$username' AND password='$password'";
         $result = $mysqli->query($sql);
 
         if ($result->num_rows == 1) {
-            // Giriş başarılı, oturumu başlat
+        
             $_SESSION['username'] = $username;
-            header("Location: admin.php"); // Giriş başarılıysa yönlendirilecek sayfa ../
+            header("Location: main.php"); 
         } else {
-            // Giriş başarısız
+       
             $errors[] = "Your account has not been found";
         }
     }

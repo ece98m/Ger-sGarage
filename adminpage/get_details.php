@@ -87,7 +87,10 @@ if ($bookings->num_rows > 0) {
    " " .
    $row["surname"] .
    '</h6>
-     <span class="mb-2 text-xs">Vehicle: <span class="text-dark font-weight-bold ms-sm-2">' .
+   <span class="mb-2 text-xs">Booking id: <span class="text-dark font-weight-bold ms-sm-2">' .
+   $row["idbookings"] .
+   '</span></span>
+   <span class="mb-2 text-xs">Vehicle: <span class="text-dark font-weight-bold ms-sm-2">' .
    $row["vehicle_type"] .
    '</span></span>
      <span class="mb-2 text-xs">Service: <span class="text-dark ms-sm-2 font-weight-bold">' .
