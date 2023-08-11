@@ -38,8 +38,6 @@
     </form>
   </section>
 
-  <!-- Diğer içerikler buraya eklenebilir -->
-
   <footer>
     <p>&copy; 2023 Ger's Garage. All rights reserved.</p>
   </footer>

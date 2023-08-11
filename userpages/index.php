@@ -41,6 +41,4 @@ include "banner.php";
         </section>
         <!-- End Blog -->
 
-
-  <!-- Diğer içerikler buraya eklenebilir -->
   <?php include "footer.php"; ?>
