@@ -4,33 +4,41 @@
 
 session_start();
 
+
+// Check if the user is logged in
+if (!isset($_SESSION['email'])) {
+  // Redirect the user to the login page or show an error message
+  header("Location: login.php");
+  exit();
+}
+
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
 } else {
 
-}
+} 
 
 
 
 
-$successMessage = ""; // Başlangıçta boş bir başarı mesajı
+$successMessage = ""; 
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // İstenen form verilerini almak
+  
   $vehicleType = $_POST['vehicle_type'];
   $vehicleMake = $_POST['vehicle_make'];
   $vehicleLicense = $_POST['vehicle_license'];
   $vehicleEngineType = $_POST['vehicle_engine_type'];
 
-  // Müşteri ID'sini bulmak için sorguyu oluştur
+  // fetch the customer id s
   $sql = "SELECT idcustomers FROM customers WHERE email='$email'";
   $result = $mysqli->query($sql);
 
   if ($result->num_rows > 0) {
-    // Müşteri bulundu, ID'yi al
+   
     $row = $result->fetch_assoc();
-    $customerId = $row['idcustomers']; // Bu idyi gerekli değişkene ata
+    $customerId = $row['idcustomers']; // assign to a variable
   }
 
   $errors = array();
@@ -63,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           if ($checkResult->num_rows > 0) {
           $errorMessage = "This vehicle has already been registered."; 
           } else {
-           // vehicles tablosuna yeni kayıt ekleme
+          
             $sql = "INSERT INTO vehicles (idcustomers, vehicle_type, make, license, engine_type)
             VALUES ('$customerId', '$vehicleType', '$vehicleMake', '$vehicleLicense', '$vehicleEngineType')";
                 if ($mysqli->query($sql) === true) {
@@ -261,5 +269,5 @@ echo '</tbody>
   
 
 
-<!-- Diğer içerikler buraya eklenebilir -->
+
 <?php include "footer.php"; ?>

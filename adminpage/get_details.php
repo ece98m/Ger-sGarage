@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["date"])) {
  // ...
 }
 
-// Database'den mekaniklerin isimlerini al
+// Get mechanic names from database
 $sql_parts = "SELECT part_id, part_name, price FROM parts";
 $result_parts = $mysqli->query($sql_parts);
 $parts = [];

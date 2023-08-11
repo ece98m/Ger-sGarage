@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST["date"];
     $serviceType = $_POST['service_type'];
     $service_description = $_POST['service_description'];
-
+    $license = $_POST['license'];
     // Fetch service_id and credit from services table
     $sql = "SELECT service_id, credit FROM services WHERE service_name='$serviceType'";
     $result = $mysqli->query($sql);
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $customerId = $row['idcustomers']; // Assign this ID to the required variable
 
             // Fetch vehicle ID for the customer
-            $sql = "SELECT idvehicles FROM vehicles WHERE idcustomers='$customerId'";
+            $sql = "SELECT idvehicles FROM vehicles WHERE license='$license'";
             $result = $mysqli->query($sql);
 
             if ($result->num_rows > 0) {
@@ -149,7 +149,7 @@ $licenses = $mysqli->query($sql);
                             
                             <label for="vehicle_type">Choose Your Vehicle:</label>
 <div class="form-group">
-    <select class="form-control" id="vehicle_type" name="vehicle_type" required>
+    <select class="form-control" id="license" name="license" required>
         <option value="" disabled selected>Select a vehicle</option> <!-- Default option -->
         <?php
         if ($licenses->num_rows > 0) {

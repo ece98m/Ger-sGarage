@@ -3,6 +3,14 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+
+// Check if the user is logged in
+if (!isset($_SESSION['email'])) {
+  // Redirect the user to the login page or show an error message
+  header("Location: login.php");
+  exit();
+}
+
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
 
@@ -22,51 +30,28 @@ if (isset($_SESSION['email'])) {
     $sql = "SELECT * FROM vehicles WHERE idcustomers='$customerId'";
     $vehicles = $mysqli->query($sql);
 
+    $Status = "Select your license detail to see your vehicle's status";
+    
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $license = $_POST['license'];
 
-      // Find the corresponding vehicle ID for the selected license
-      $sql = "SELECT idvehicles FROM vehicles WHERE license='$license'";
-      $result = $mysqli->query($sql);
+      // fetch the status by using license details with this query
+   $statusQuery = "SELECT bs.Status_Name
+   FROM bookings b
+   JOIN booking_statuses bs ON b.status = bs.Status_ID
+   JOIN vehicles v ON b.idvehicles = v.idvehicles
+   WHERE v.license = '$license'";
 
-      if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $vehicleId = $row['idvehicles']; // assign the vehicle id to a variable
+$statusResult = $mysqli->query($statusQuery);
 
-        // get the vehicle status now belong to the specific customer account
-        $sql = "SELECT status FROM bookings WHERE idvehicles='$vehicleId'";
-        $result = $mysqli->query($sql);
-
-        $Status = ""; // Default value before the if statement
-        if ($result->num_rows > 0) {
-          $row = $result->fetch_assoc();
-          $vehicleStatus = $row['status']; // assign the vehicle status to a variable
- 
-          // get the vehicle status now belong to the specific customer account
-          $sql = "SELECT Status_Name FROM booking_statuses WHERE Status_ID='$vehicleStatus'";
-          $result = $mysqli->query($sql);
-          if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $Status = $row['Status_Name']; // Correct assignment
-          } else {
-            // Handle the case when no status name is found
-            $Status = "Unknown"; // Default value or appropriate error handling
-          }
-
-          echo "Selected vehicle's status: " .  $Status;
-        } else {
-          echo "No bookings found for the selected vehicle.";
-        }
-      } else {
-        echo "Selected vehicle not found in the database.";
-      }
-    }
-  }
-
-
+if ($statusResult && $statusResult->num_rows > 0) {
+$statusRow = $statusResult->fetch_assoc();
+$Status = $statusRow['Status_Name'];
 } else {
-//if the session hasnt started
+$Status = "Status not found";
 }
+}
+}}
 ?>
 
 <body>
@@ -77,6 +62,12 @@ if (isset($_SESSION['email'])) {
         .custom-margin {
           margin-top: 200px;
         }
+        .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 22vh; /* Bu, ekran yüksekliği kadar alan kaplayacak şekilde ayarlanmıştır */
+  }
       </style>
     </head>
     <div class="container">
@@ -89,6 +80,7 @@ if (isset($_SESSION['email'])) {
                 <div class="form-group">
                   <label for="license">License</label>
                   <select class="form-control" id="license" name="license" required>
+                  <option value="" disabled selected>Select a license</option>
                     <?php
                     if (isset($vehicles) && $vehicles->num_rows > 0) {
                       while ($row = $vehicles->fetch_assoc()) {
@@ -109,8 +101,8 @@ if (isset($_SESSION['email'])) {
     </div>
   </section>
 
-  <div>
-  <p>STATUS : <?php echo $Status; ?></p>
+  <div class="center">
+  <h1>STATUS : <?php echo $Status; ?></h1>
   </div>
 </body>
 

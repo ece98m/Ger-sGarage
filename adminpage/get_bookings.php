@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
  $dateText = $_POST["date"]; // Make sure to sanitize and validate this input.
 
- // Database'den mekaniklerin isimlerini al
+ 
  $sql_mechanics = "SELECT id_mechanics, firstname, surname FROM mechanics";
  $result_mechanics = $mysqli->query($sql_mechanics);
  $mechanics = [];
