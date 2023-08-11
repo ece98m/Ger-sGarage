@@ -212,7 +212,7 @@ $licenses = $mysqli->query($sql);
                                 </script>
                             </div>
                             <div>
-    <p>Toplam Günlük Kredi Kullanımı: <?php echo $totalCreditUsed; ?></p>
+  
 </div>
                             <input type="submit" value="Submit">
                         </form>
