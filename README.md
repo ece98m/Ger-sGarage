@@ -20,7 +20,7 @@ List the requirements to run your project. For example:
 
 Describe the migration script (`migration.php`) in detail. Explain its purpose and how to use it. You can provide examples of commands to run and expected outcomes.
 
-Reset your user details to start php 
+Reset your user details in migration to start php 
 
 ```bash
 php migration.php
