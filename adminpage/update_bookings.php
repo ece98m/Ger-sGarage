@@ -9,10 +9,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $k = strpos($key, "mechanic_");
   $booking_id = substr($key, strlen("mechanic_"));
   $mechanic_id = $value;
+  
+  
 
   $status_key = "status_" . $booking_id;
   if (isset($_POST[$status_key])) {
    $status_id = $_POST[$status_key];
+   
 
    // Update booking in the database
    $sql = "UPDATE bookings SET id_mechanics=?, status=? WHERE idbookings=?";
@@ -23,14 +26,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
    $stmt->execute();
 
-   if ($stmt->error) {
-    echo "ERROR: Could not able to execute $sql. " . $stmt->error;
-   } else {
-    header("Location: main.php?page=bookings");
-    exit();
-   }
+  
   }
  }
 }
+
+header("Location: main.php?page=bookings");
+exit();
 
 ?>

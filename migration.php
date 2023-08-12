@@ -1,19 +1,12 @@
 <?php
 
-$host = 'localhost';
+$host = '127.0.0.1';
 $dbname = 'gersgarage';
 $username = 'root';
-$password = '';
-$socket = '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock'; // Update this with the correct MySQL socket path
+$password = 'root';
 
 $sqlFilePath = 'gersgarage.sql';
 
-$conn = mysqli_connect($host, $username, $password, $dbname, null, $socket);
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-}
-echo "Connected successfully!";
-mysqli_close($conn);
 
 if (!file_exists($sqlFilePath)) {
     echo "Error: SQL file not found.";
@@ -23,7 +16,7 @@ if (!file_exists($sqlFilePath)) {
 $sqlQueries = file_get_contents($sqlFilePath);
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;unix_socket=$socket", $username, $password);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $queries = explode(';', $sqlQueries);

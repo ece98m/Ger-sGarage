@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     '</p>
       </td>
       <td class="align-middle text-center text-sm">
-      <select class="btn bg-gradient-dark dropdown-toggle" name="mechanics' .
+      <select class="btn bg-gradient-dark dropdown-toggle" name="mechanic_' .
     $row["idbookings"] .
     '" style="    padding: 0.2rem 0;
       margin-bottom: 0;

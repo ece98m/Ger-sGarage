@@ -244,7 +244,7 @@ if (empty($_POST["selected_parts"])) { ?>
  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js';
  script.onload = function () {
   const pdf = new jsPDF();
-  const url = 'http://localhost/garage/adminpage/invoice-template.php?id='+id;
+  const url = 'http://localhost/Ger-sGarage/adminpage/invoice-template.php?id='+id;
   fetch(url)
   .then((response) => response.text())
   .then((html) => {

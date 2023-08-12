@@ -1,5 +1,9 @@
 <?php include "header.php"; ?>
 <?php 
+if(isset($_SESSION['email'])) { 
+    header("Location: profile.php");
+    exit;
+} 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $email = $_POST['email'];
@@ -45,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $sql = "INSERT INTO customers (firstname, surname, mobile_phone, email, password) VALUES ('$firstname', '$surname', '$mobile_phone', '$email', '$password')";
         
             if ($mysqli->query($sql) === TRUE) {
-                echo "Kayıt başarıyla oluşturuldu.";
+                $_SESSION['email'] = $email;
+                header("Location: ".URL."profile.php");
             } else {
                 $errors[] = $mysqli->error;
             }

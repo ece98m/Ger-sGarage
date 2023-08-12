@@ -3,7 +3,7 @@ $dbhost = 'localhost';
 $dbuser = 'root';
 $dbpass = 'root';
 $dbname = 'gersgarage';
-define("URL","http://localhost/garage/userpages/");
+define("URL","http://localhost/Ger-sGarage/userpages/");
 $mysqli = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 
 if (session_status() == PHP_SESSION_NONE) {

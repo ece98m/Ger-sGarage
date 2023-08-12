@@ -35,7 +35,7 @@
 
     <body>
         <!-- Start Navbar Area -->
-        <div class="navbar-area fixed-top">
+        <div class="navbar-area ">
             <!-- Menu For Mobile Device -->
             <div class="mobile-nav">
                 <a href="index.php" class="logo">
@@ -44,7 +44,7 @@
             </div>
 
             <!-- Menu For Desktop Device -->
-            <div class="main-nav">
+            <div class="main-nav" style="position: relative;">
                 <div class="container">
                     <nav class="navbar navbar-expand-md navbar-light">
                         <a class="navbar-brand" href="index.php">
