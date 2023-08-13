@@ -57,13 +57,13 @@
                                    
                                 </li>
                                 <li class="nav-item">
-                                    <a href="about.html" class="nav-link">About</a>
+                                    <a href="about.php" class="nav-link">About</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="service.php" class="nav-link dropdown-toggle">Services</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pricing.html" class="nav-link">Pricing</a>
+                                    <a href="pricing.php" class="nav-link">Pricing</a>
                                 </li>
                     
                                 <li class="nav-item">

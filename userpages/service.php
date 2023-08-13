@@ -54,6 +54,22 @@
   
 
   <script src="scriptservice.js"></script>
+
+  <script>
+function showBookingForm(serviceType) {
+    
+    <?php
+    if (isset($_SESSION['user_id'])) {
+        //if session exist booking.php
+        echo "window.location.href = 'booking.php?service=' + encodeURIComponent(serviceType);";
+    } else {
+        // id no session login.php
+        echo "window.location.href = 'login.php';";
+    }
+    ?>
+}
+</script>
+
 </body>
 
 
