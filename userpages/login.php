@@ -5,16 +5,16 @@ include "header.php";?>
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
+/* 
 if(isset($_SESSION['email'])) { 
     header("Location: profile.php");
     exit;
-} 
+}  */
 
 $errors = array();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = trim($_POST['email']);
+    $email = trim($_POST['email']);  //ignore unncessery spaces
     $password = trim($_POST['password']);
     
     if(empty($email)) {
@@ -33,9 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $result = $stmt->get_result();
 
-        if ($result->num_rows == 1) {
+        if ($result->num_rows == 1) {      //if there is this email and password row
             $_SESSION['email'] = $email;
-            header("Location: ".URL."profile.php");
+            header("Location: ".URL."profile.php"); //predifined URL ...usarpages/...
             exit;
         } else {
             $errors[] = "Your account has not been found";
@@ -45,6 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
+
+
 
 <section id="">
 <div class="login-area ptb-100">  
